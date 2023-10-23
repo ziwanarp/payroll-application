@@ -47,11 +47,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = ['configurations', 'pays', 'presences','role'];
-
-    public function conigurations() {
-        return $this->hasMany(Configuration::class);
-    }
+    // protected $with = ['pays', 'presences','role'];
 
     public function pays() {
         return $this->hasMany(Pay::class);

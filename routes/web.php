@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController\LoginController;
-use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*

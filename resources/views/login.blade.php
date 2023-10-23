@@ -122,6 +122,13 @@
         <div class="text-center mt-4 name">
             Payroll Application
         </div>
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger fade show mt-3 text-center" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <form class="p-3 mt-3" method="POST" action="/login">
             @csrf
             <div class="form-field d-flex align-items-center">
