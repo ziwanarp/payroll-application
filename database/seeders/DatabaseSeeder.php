@@ -24,6 +24,16 @@ class DatabaseSeeder extends Seeder
             'role' => 'user'
         ]);
 
+        \App\Models\Configuration::create([
+            'variable' => 'time_in',
+            'value' => '08:00:00',
+        ]);
+
+        \App\Models\Configuration::create([
+            'variable' => 'time_out',
+            'value' => '17:00:00',
+        ]);
+
         \App\Models\User::create([
             'name' => 'admin app',
             'username' => 'admin',

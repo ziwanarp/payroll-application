@@ -6,10 +6,10 @@
         </a>
         <div class="d-flex order-lg-2 ml-auto">
           <div class="nav-item d-none d-md-flex">
-            <button class="btn btn-sm btn-success" disabled>Current Time: <div id="clock"></div></button>
+            <button class="btn btn-sm btn-{{ $data->time_in }}" disabled>Current Time: <div id="clock"></div></button>
           </div>
           <div class="nav-item d-none d-md-flex">
-            <button href="#" class="btn btn-outline-success" >Come In !</a>
+            <button href="#" class="btn btn-outline-{{ $data->time_in }}" >Come In !</a>
           </div>
           <div class="dropdown d-none d-md-flex">
             <a class="nav-link icon" data-toggle="dropdown">

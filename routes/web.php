@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController\LoginController;
+use App\Http\Controllers\UserDashboardController\UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,5 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {return view('welcome');});
+    Route::get('/', [UserDashboardController::class, 'index']);
 });
