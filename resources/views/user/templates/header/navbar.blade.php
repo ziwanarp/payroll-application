@@ -6,10 +6,13 @@
         </a>
         <div class="d-flex order-lg-2 ml-auto">
           <div class="nav-item d-none d-md-flex">
-            <button class="btn btn-sm btn-{{ $data->time_in }}" disabled>Current Time: <div id="clock"></div></button>
+            <button data-toggle="tooltip" title="{{ $data->tooltip }}" class="btn btn-sm btn-{{ $data->color }}" disabled>Current Time: <div id="clock"></div></button>
           </div>
           <div class="nav-item d-none d-md-flex">
-            <button href="#" class="btn btn-outline-{{ $data->time_in }}" >Come In !</a>
+            <form action="{{ $data->link.$data->value }}" method="POST">
+              @csrf
+              <button type="submit" data-toggle="tooltip" title="{{ $data->tooltip }}" class="btn btn-outline-{{ $data->color }}" >{{ $data->message }}</a>
+            </form>
           </div>
           <div class="dropdown d-none d-md-flex">
             <a class="nav-link icon" data-toggle="dropdown">
