@@ -5,6 +5,18 @@
           <img src="{{ asset('assets/images/logo/logo.png') }}" class="header-brand-img" alt="payroll application">Payroll Application
         </a>
         <div class="d-flex order-lg-2 ml-auto">
+          @if (session()->has('error'))
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert"></button>
+              {{ session('error') }}
+            </div>
+          @endif
+          @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert"></button>
+              {{ session('success') }}
+            </div>
+          @endif
           <div class="nav-item d-none d-md-flex">
             <button data-toggle="tooltip" title="{{ $data->tooltip }}" class="btn btn-sm btn-{{ $data->color }}" disabled>Current Time: <div id="clock"></div></button>
           </div>
