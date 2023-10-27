@@ -129,15 +129,27 @@
             </div>
         @endif
 
+        @error('username')
+            <div class="alert alert-danger fade show mt-3 text-center" role="alert">
+                {{ $message }}
+            </div>
+        @enderror
+
+        @error('password')
+            <div class="alert alert-danger fade show mt-3 text-center" role="alert">
+                {{ $message }}
+            </div>
+        @enderror
+
         <form class="p-3 mt-3" method="POST" action="/login">
             @csrf
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
-                <input type="text" name="username" id="userName" placeholder="Username">
+                <input type="text" name="username" id="userName" placeholder="Username" >
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Password">
+                <input type="password" name="password" id="pwd" placeholder="Password" >
             </div>
             <button type="submit" class="btn mt-3">Login</button>
         </form>
