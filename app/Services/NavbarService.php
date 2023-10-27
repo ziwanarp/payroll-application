@@ -23,19 +23,19 @@ class NavbarService
             $data->color = 'success';
             $data->message = 'Present!';
             $data->tooltip = 'Belum terlambat, silahkan absen';
-            $data->link = '/api/presences/';
+            $data->link = '/presences/';
         } else if (time() > $timeIn && time() < $timeOut){
             $data->value = 'in';
             $data->color = 'danger';
             $data->message = 'Present!';
             $data->tooltip = 'Anda terlambat, silahkan absen !';
-            $data->link = '/api/presences/';
+            $data->link = '/presences/';
         } else if (time() > $timeOut && time() < strtotime('23:59:59')){
             $data->value = 'out';
             $data->color = 'success';
             $data->message = 'Go Home!';
             $data->tooltip = 'Saatnya pulang, silahkan absen !';
-            $data->link = '/api/presences/';
+            $data->link = '/presences/';
         } else {
             $data->value = 'error';
             $data->color = 'error';

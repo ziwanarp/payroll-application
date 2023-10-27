@@ -4,6 +4,8 @@ namespace App\Http\Controllers\AuthController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\LoginService;
+use App\Services\LogoutService;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -14,14 +16,13 @@ class LoginController extends Controller
     }
 
     public function login (Request $request){
-        $credentials = $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
+        $LoginService = new LoginService;
+        return $LoginService->LoginService($request);
+    }
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/');
-        }
-        return back()->with('error', 'Wrong credentials !');
+    public function logout (Request $request)
+    {
+        $LogoutService = new LogoutService;
+        return $LogoutService->LogoutService($request);
     }
 }
