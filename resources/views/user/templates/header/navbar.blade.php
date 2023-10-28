@@ -1,7 +1,7 @@
 <div class="header py-4">
     <div class="container">
       <div class="d-flex">
-        <a class="header-brand" href="#">
+        <a class="header-brand" href="/">
           <img src="{{ asset('assets/images/logo/logo.png') }}" class="header-brand-img" alt="payroll application">Payroll Application
         </a>
         <div class="d-flex order-lg-2 ml-auto">
@@ -66,7 +66,7 @@
               </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="/profile">
                 <i class="dropdown-icon fe fe-user"></i> Profile
               </a>
               <a class="dropdown-item" href="#">

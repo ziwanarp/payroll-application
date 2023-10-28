@@ -26,4 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/presences/out', [UserDashboardController::class, 'presenceOut']);
     
     Route::post('/logout', [LoginController::class, 'logout']);
+
+    Route::get('/profile', [UserDashboardController::class, 'profile']);
 });

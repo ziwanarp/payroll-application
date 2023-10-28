@@ -54,6 +54,6 @@ class NavbarService
             }
         }
         
-        return view('welcome', compact('data'));
+        return $data;
     }
 }

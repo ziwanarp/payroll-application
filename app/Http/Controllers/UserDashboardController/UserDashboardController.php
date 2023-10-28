@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers\UserDashboardController;
 
-use App\Http\Controllers\Controller;
-use App\Models\Presence;
+use App\Models\User;
 use App\Services\NavbarService;
+use App\Http\Controllers\Controller;
 use App\Services\User\PresenceInService;
 use App\Services\User\PresenceOutService;
 
 class UserDashboardController extends Controller
 {
+    private function navbarService(){
+        $navbarService = new NavbarService;
+        return $navbarService->navbarService();
+    }
+
     public function index(){
-        $navbarData = new NavbarService;
-        return $navbarData->navbarService();
+        $data = $this->navbarService();
+        return view('welcome', compact('data'));
     }
 
     public function presenceIn(){
@@ -23,5 +28,11 @@ class UserDashboardController extends Controller
     public function presenceOut(){
         $PresenceOutService = new PresenceOutService;
         return $PresenceOutService->presenceOutService();
+    }
+
+    public function profile(){
+        $user = User::find(auth()->user()->id);
+        $data = $this->navbarService();
+        return view('user.profile', compact('user','data'));
     }
 }
