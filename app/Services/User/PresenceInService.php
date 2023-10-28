@@ -9,7 +9,7 @@ class PresenceInService {
     public function presenceInService(){
         $presence = Presence::where('user_id',auth()->user()->id)->orWhere('date', today())->whereNotNull('in')->get();
         if(count($presence) != 0){
-            return redirect('/')->with('error','Anda sudah melakukan absen masuk hari ini !');
+            return back()->with('error','Anda sudah melakukan absen masuk hari ini !');
         }
 
         $presenceIn = new Presence([
@@ -20,7 +20,7 @@ class PresenceInService {
         ]);
         $presenceIn->save();
 
-        return redirect('/')->with('success','Absen masuk berhasil !');
+        return back()->with('success','Absen masuk berhasil !');
 
     }
 
