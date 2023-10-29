@@ -11,7 +11,8 @@
               <h3 class="card-title">Change Password</h3>
             </div>
             <div class="card-body">
-              <form>
+              <form action="/update/password" method="POST">
+                @csrf
                 <div class="row">
                   <div class="col-auto">
                     <span class="avatar avatar-xl" style="background-image: url(demo/faces/female/9.jpg)"></span>
@@ -25,14 +26,27 @@
                 </div>
                 <div class="form-group">
                   <label class="form-label">New Password</label>
-                  <input type="password" class="form-control" name="new_password"/>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Masukan password baru" onkeyup='check()'/>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Confirm New Password</label>
-                  <input type="password" class="form-control" name="confirm_new_password"/>
+                  <input type="password" class="form-control" id="new_password" name="new_password" placeholder="Masukan konfirmasi password" onkeyup='check()'/>
+                  <span class="mx-0 mt-2" id='message'></span>
                 </div>
+                @if (session()->has('success_password'))
+                  <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"></button>
+                    {{ session('success_password') }}
+                  </div>
+                @endif
+                @if (session()->has('error_password'))
+                  <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"></button>
+                    {{ session('error_password') }}
+                  </div>
+                @endif
                 <div class="form-footer">
-                  <button class="btn btn-primary btn-block">Save</button>
+                  <button class="btn btn-primary btn-block" type="submit" id="password_submit">Save</button>
                 </div>
               </form>
             </div>
@@ -83,5 +97,20 @@
       </div>
     </div>
   </div>
+
+  <script>
+    var check = function() {
+      if (document.getElementById('password').value ==
+        document.getElementById('new_password').value) {
+        document.getElementById('message').style.color = 'green';
+        document.getElementById('message').innerHTML = '✓ Password Match';
+        document.getElementById('password_submit').disabled = false;
+      } else {
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('message').innerHTML = 'Password Not Match';
+        document.getElementById('password_submit').disabled = true;
+      }
+    }
+  </script>
 
 @endsection

@@ -28,4 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
 
     Route::get('/profile', [UserDashboardController::class, 'profile']);
+
+    Route::post('/update/password', [UserDashboardController::class, 'updatePassword']);
 });

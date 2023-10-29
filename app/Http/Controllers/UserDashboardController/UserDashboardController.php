@@ -7,6 +7,8 @@ use App\Services\NavbarService;
 use App\Http\Controllers\Controller;
 use App\Services\User\PresenceInService;
 use App\Services\User\PresenceOutService;
+use App\Services\User\UpdatePassword;
+use Illuminate\Http\Request;
 
 class UserDashboardController extends Controller
 {
@@ -34,5 +36,10 @@ class UserDashboardController extends Controller
         $user = User::find(auth()->user()->id);
         $data = $this->navbarService();
         return view('user.profile', compact('user','data'));
+    }
+
+    public function updatePassword(Request $request){
+        $updatePassword = new UpdatePassword;
+        return $updatePassword->updatePassword($request);
     }
 }
