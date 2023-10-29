@@ -7,7 +7,7 @@ use App\Models\Presence;
 class PresenceInService {
 
     public function presenceInService(){
-        $presence = Presence::where('user_id',auth()->user()->id)->orWhere('date', today())->whereNotNull('in')->get();
+        $presence = Presence::where('user_id',auth()->user()->id)->Where('date', today())->whereNotNull('in')->get();
         if(count($presence) != 0){
             return back()->with('error','Anda sudah melakukan absen masuk hari ini !');
         }
