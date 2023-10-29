@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\UserDashboardController;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Services\NavbarService;
 use App\Http\Controllers\Controller;
+use App\Services\User\UpdateProfile;
+use App\Services\User\UpdatePassword;
 use App\Services\User\PresenceInService;
 use App\Services\User\PresenceOutService;
-use App\Services\User\UpdatePassword;
-use Illuminate\Http\Request;
 
 class UserDashboardController extends Controller
 {
@@ -41,5 +42,10 @@ class UserDashboardController extends Controller
     public function updatePassword(Request $request){
         $updatePassword = new UpdatePassword;
         return $updatePassword->updatePassword($request);
+    }
+
+    public function updateProfile(Request $request){
+        $updateProfile = new UpdateProfile;
+        return $updateProfile->updateProfile($request);
     }
 }

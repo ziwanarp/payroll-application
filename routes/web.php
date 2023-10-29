@@ -30,4 +30,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserDashboardController::class, 'profile']);
 
     Route::post('/update/password', [UserDashboardController::class, 'updatePassword']);
+    Route::post('/update/profile', [UserDashboardController::class, 'updateProfile']);
 });

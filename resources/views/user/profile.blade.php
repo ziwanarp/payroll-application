@@ -53,26 +53,27 @@
           </div>
         </div>
         <div class="col-lg-8">
-          <form class="card">
+          <form class="card" id="update_form">
+            @csrf
             <div class="card-body">
               <h3 class="card-title">My Profile</h3>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" disabled="" placeholder="Company" value="{{ $user->name }}" disabled>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="name" value="{{ $user->name }}" disabled>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
                   <div class="form-group">
                     <label class="form-label">Username</label>
-                    <input type="text" class="form-control" placeholder="Username" value="{{ $user->username}}" disabled>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="{{ $user->username}}" disabled>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
                   <div class="form-group">
                     <label class="form-label">Email address</label>
-                    <input type="email" class="form-control" placeholder="Email" value="{{ $user->email }}" disabled>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ $user->email }}" disabled>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-12">
@@ -84,13 +85,25 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-label">Last Login</label>
-                    <input type="text" class="form-control" placeholder="Home Address" value="{{ \Carbon\Carbon::parse($user->last_login)->diffForHumans() }}" disabled>
+                    <input type="text" class="form-control" placeholder="last login" value="{{ \Carbon\Carbon::parse($user->last_login)->diffForHumans() }}" disabled>
                   </div>
                 </div>
               </div>
+              @if (session()->has('success_profile'))
+                <div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert"></button>
+                  {{ session('success_profile') }}
+                </div>
+              @endif
+              @if (session()->has('error_profile'))
+                <div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert"></button>
+                  {{ session('error_profile') }}
+                </div>
+              @endif
             </div>
             <div class="card-footer text-right">
-              <button type="submit" class="btn btn-primary">Update Profile</button>
+              <button type="button" id="edit_button" onclick="buttonEditSave()" class="btn btn-primary">Edit Profile</button>
             </div>
           </form>
         </div>
@@ -111,6 +124,29 @@
         document.getElementById('password_submit').disabled = true;
       }
     }
+
+
+    function buttonEditSave() {
+            var edit_button = document.getElementById("edit_button");
+            var cancel_button = document.getElementById("cancel_button");
+            var update_form = document.getElementById("update_form");
+
+            if (edit_button.innerHTML === "Edit Profile") {
+                edit_button.innerHTML = "Save";
+                enableFormFields(update_form)
+            } else {
+                edit_button.innerHTML = "Save";
+                update_form.action = "update/profile";
+                update_form.method = "post";
+                edit_button.type = "submit";
+            }
+        }
+
+        function enableFormFields(form) {
+          document.getElementById('name').disabled = false;
+          document.getElementById('email').disabled = false;
+          document.getElementById('username').disabled = false;
+        }
   </script>
 
 @endsection
