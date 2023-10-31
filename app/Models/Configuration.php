@@ -12,6 +12,14 @@ class Configuration extends Model
     protected $guarded = ['id'];
     protected $with = ['user'];
 
+    public function in(){
+        return Configuration::select('value')->where('variable','time_in')->first();
+    }
+
+    public function out(){
+        return Configuration::select('value')->where('variable','time_out')->first();
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

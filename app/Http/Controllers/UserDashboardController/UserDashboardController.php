@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\NavbarService;
 use App\Http\Controllers\Controller;
+use App\Models\Configuration;
+use App\Services\User\HomeService;
 use App\Services\User\UpdateProfile;
 use App\Services\User\UpdatePassword;
 use App\Services\User\PresenceInService;
@@ -13,14 +15,23 @@ use App\Services\User\PresenceOutService;
 
 class UserDashboardController extends Controller
 {
-    private function navbarService(){
-        $navbarService = new NavbarService;
-        return $navbarService->navbarService();
+    private $navbarService;
+    private $homeService;
+    private $configuration;
+
+    public function __construct()
+    {
+        $this->navbarService = new NavbarService;
+        $this->homeService = new HomeService;
+        $this->configuration = new Configuration;
     }
 
     public function index(){
-        $data = $this->navbarService();
-        return view('welcome', compact('data'));
+        $data = $this->navbarService->navbarService();
+        $home = $this->homeService->HomeService();
+        $in = $this->configuration->in();
+        $out = $this->configuration->out();
+        return view('home', compact('data','home','in','out'));
     }
 
     public function presenceIn(){
@@ -35,7 +46,7 @@ class UserDashboardController extends Controller
 
     public function profile(){
         $user = User::find(auth()->user()->id);
-        $data = $this->navbarService();
+        $data = $this->navbarService->navbarService();
         return view('user.profile', compact('user','data'));
     }
 
