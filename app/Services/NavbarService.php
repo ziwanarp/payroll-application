@@ -9,22 +9,18 @@ use App\Models\Configuration;
 class NavbarService
 {
     private $link;
+    private $configuration;
 
     public function __construct()
     {
         $this->link = '/presences/';
+        $this->configuration = new Configuration;
     }
 
     public function navbarService(){
         $data = new stdClass;
-        $collection = Configuration::all();
-        foreach($collection as $item){
-            if($item->variable == 'time_in'){
-                $timeIn = strtotime($item->value);
-            } else if($item->variable == 'time_out'){
-                $timeOut = strtotime($item->value);
-            } 
-        }
+        $timeIn = $this->configuration->in();
+        $timeOut = $this->configuration->out();
 
         $presence = Presence::where('user_id', auth()->user()->id)->where('date',today())->get();
         if(count($presence) != 0){
