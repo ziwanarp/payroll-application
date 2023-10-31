@@ -19,8 +19,8 @@ class NavbarService
 
     public function navbarService(){
         $data = new stdClass;
-        $timeIn = $this->configuration->in();
-        $timeOut = $this->configuration->out();
+        $timeIn = strtotime($this->configuration->in());
+        $timeOut = strtotime($this->configuration->out());
 
         $presence = Presence::where('user_id', auth()->user()->id)->where('date',today())->get();
         if(count($presence) != 0){
