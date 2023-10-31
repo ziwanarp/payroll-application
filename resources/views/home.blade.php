@@ -2,6 +2,8 @@
 
 @section('body')
 
+<h4 class="text-center">Absensi {{ \Carbon\Carbon::now()->format('F Y') }}</h4>
+
 <div class="row row-cards row-deck">
     <div class="col-12">
       <div class="card">
@@ -28,7 +30,7 @@
                   <td>
                     <div>{{ auth()->user()->name }}</div>
                     <div class="small text-muted">
-                      Registered: {{ auth()->user()->created_at }}
+                      Registered: {{ auth()->user()->created_at->format('Y-m-d') }}
                     </div>
                   </td>
                   <td>
@@ -45,10 +47,14 @@
                     </div>
                   </td>
                   <td class="text-center">
-                    @if (strtotime($item->out) < strtotime($out->value))
-                        <span data-toggle="tooltip" title="Absen Pulang terlalu cepat !" class="badge badge-danger">{{ $item->out }}</span>
+                    @if ($item->out != null)
+                      @if (strtotime($item->out) < strtotime($out->value))
+                          <span data-toggle="tooltip" title="Absen Pulang terlalu cepat !" class="badge badge-danger">{{ $item->out }}</span>
+                      @else
+                          <span data-toggle="tooltip" title="Absen Pulang tepat waktu !" class="badge badge-success">{{ $item->out }}</span>
+                      @endif
                     @else
-                        <span data-toggle="tooltip" title="Absen Pulang tepat waktu !" class="badge badge-success">{{ $item->out }}</span>
+                      <span class="badge badge-secondary">Belum absen</span>
                     @endif
                   </td>
                   
