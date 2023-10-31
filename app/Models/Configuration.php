@@ -10,7 +10,6 @@ class Configuration extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $with = ['user'];
 
     public function in(){
         return Configuration::select('value')->where('variable','time_in')->first();
