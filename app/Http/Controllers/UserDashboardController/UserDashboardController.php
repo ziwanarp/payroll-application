@@ -31,7 +31,9 @@ class UserDashboardController extends Controller
         $home = $this->homeService->HomeService();
         $in = $this->configuration->in();
         $out = $this->configuration->out();
-        return view('home', compact('data','home','in','out'));
+        $active = 'home';
+        $title = 'Dashboard Absensi - Payroll App';
+        return view('home', compact('data','home','in','out', 'active', 'title'));
     }
 
     public function presenceIn(){
@@ -47,7 +49,9 @@ class UserDashboardController extends Controller
     public function profile(){
         $user = User::find(auth()->user()->id);
         $data = $this->navbarService->navbarService();
-        return view('user.profile', compact('user','data'));
+        $active = 'profile';
+        $title = 'Profile Page - Payroll App';
+        return view('user.profile', compact('user','data', 'active', 'title'));
     }
 
     public function updatePassword(Request $request){
@@ -58,5 +62,9 @@ class UserDashboardController extends Controller
     public function updateProfile(Request $request){
         $updateProfile = new UpdateProfile;
         return $updateProfile->updateProfile($request);
+    }
+
+    public function statistic(){
+        
     }
 }

@@ -15,7 +15,7 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <!-- Generated: 2018-04-06 16:27:42 +0200 -->
-    <title>{{ $title }}</title>
+    <title>Page 404 - tabler.github.io - a responsive, flat and full featured admin template</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="./assets/js/require.min.js"></script>
@@ -38,39 +38,16 @@
   </head>
   <body class="">
     <div class="page">
-      <div class="page-main">
-        
-        @include('user.templates.header.navbar')
-        
-        <div class="my-3 my-md-5">
-          <div class="container">
-
-            @yield('body')
-
-          </div>
+      <div class="page-content">
+        <div class="container text-center">
+          <div class="display-1 text-muted mb-5"><i class="si si-exclamation"></i> 404</div>
+          <h1 class="h2 mb-3">Oops.. You just found an error page..</h1>
+          <p class="h4 text-muted font-weight-normal mb-7">We are sorry but our service is currently not available&hellip;</p>
+          <a class="btn btn-primary" href="javascript:history.back()">
+            <i class="fe fe-arrow-left mr-2"></i>Go back
+          </a>
         </div>
       </div>
-        
-      @include('user.templates.footer.footer')
-
     </div>
-    <script>
-        function updateClock() {
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            
-            const timeString = `${hours}:${minutes}:${seconds}`;
-            
-            document.getElementById('clock').textContent = timeString;
-        }
-
-        // Update the clock every second
-        setInterval(updateClock, 1000);
-
-        // Call the function immediately to display the time when the page loads
-        updateClock();
-    </script>
   </body>
 </html>

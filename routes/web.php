@@ -31,4 +31,12 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/update/password', [UserDashboardController::class, 'updatePassword']);
     Route::post('/update/profile', [UserDashboardController::class, 'updateProfile']);
+
+    Route::get('/statistic', [UserDashboardController::class, 'statistic']);
+
+
+});
+
+Route::fallback(function () {
+    return view('404');
 });
