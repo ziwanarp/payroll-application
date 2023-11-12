@@ -4,10 +4,10 @@ namespace App\Http\Controllers\UserDashboardController;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Services\NavbarService;
-use App\Http\Controllers\Controller;
 use App\Models\Configuration;
+use App\Services\NavbarService;
 use App\Services\User\HomeService;
+use App\Http\Controllers\Controller;
 use App\Services\User\UpdateProfile;
 use App\Services\User\UpdatePassword;
 use App\Services\User\PresenceInService;
@@ -26,14 +26,17 @@ class UserDashboardController extends Controller
         $this->configuration = new Configuration;
     }
 
-    public function index(){
+    public function index(Request $request){
+        $homeData = $this->homeService->HomeService($request);
+        $home = $homeData['presence'];
+        $month = $homeData['month'];
+
         $data = $this->navbarService->navbarService();
-        $home = $this->homeService->HomeService();
         $in = $this->configuration->in();
         $out = $this->configuration->out();
         $active = 'home';
         $title = 'Dashboard Absensi - Payroll App';
-        return view('home', compact('data','home','in','out', 'active', 'title'));
+        return view('home', compact('data','home','in','out', 'active', 'title', 'month'));
     }
 
     public function presenceIn(){

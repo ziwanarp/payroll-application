@@ -2,10 +2,23 @@
 
 @section('body')
 
-<h4 class="text-center">Absensi {{ \Carbon\Carbon::now()->format('F Y') }}</h4>
+<div class="d-inline">
+  <h4 class="my-5 text-center">Absensi {{ \Carbon\Carbon::createFromFormat('Y-m', $month)->format('F Y') }}</h4>
+  
+</div>
 
 <div class="row row-cards row-deck">
-    <div class="col-12">
+  <div class="col-12">
+    <div class="col-3 mb-2">
+      <form action="/" method="GET" class="input-group">
+        <input type="month" class="form-control" name="bulan" placeholder="Masukan Bulan" value="{{ $month }}" required>
+          <span class="input-group-append">
+            <button class="btn btn-primary" type="submit">Pilih Bulan</button>
+          </span>
+      </form>       
+    </div>
+  </div>
+  <div class="col-12">
       <div class="card">
         <div class="table-responsive">
           <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
