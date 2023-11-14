@@ -23,7 +23,7 @@
           <div class="nav-item d-none d-md-flex">
             <form action="{{ $data->link.$data->value }}" method="POST">
               @csrf
-              <button type="submit" data-toggle="tooltip" title="{{ $data->tooltip }}" class="btn btn-outline-{{ $data->color }}" >{{ $data->message }}</a>
+              <button type="submit" data-toggle="tooltip" title="{{ $data->tooltip }}" class="btn btn-outline-{{ $data->color }}" {{ $data->buttonStatus }} >{{ $data->message }}</a>
             </form>
           </div>
           <div class="dropdown d-none d-md-flex">
