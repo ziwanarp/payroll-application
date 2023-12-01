@@ -36,7 +36,7 @@
             <tbody>
                 <tr>
                   <td class="text-center">
-                    <div class="avatar d-block" style="background-image: url(demo/faces/female/26.jpg)">
+                    <div class="avatar d-block" style="background-image: url('{{ asset('/storage/'. auth()->user()->picture) }}')">
                       <span class="avatar-status bg-green"></span>
                     </div>
                   </td>

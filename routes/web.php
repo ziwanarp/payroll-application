@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/update/password', [UserDashboardController::class, 'updatePassword']);
     Route::post('/update/profile', [UserDashboardController::class, 'updateProfile']);
+    Route::post('/update/profile-picture', [UserDashboardController::class, 'updateProfilePicture']);
 
     Route::get('/statistic', [UserDashboardController::class, 'statistic']);
 

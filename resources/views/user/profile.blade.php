@@ -11,12 +11,24 @@
               <h3 class="card-title">Change Password</h3>
             </div>
             <div class="card-body">
-              <form action="/update/password" method="POST">
-                @csrf
+              
+                
                 <div class="row">
-                  <div class="col-auto">
-                    <span class="avatar avatar-xl" style="background-image: url(demo/faces/female/9.jpg)"></span>
-                  </div>
+                
+                    <form id="uploadPoto" action="update/profile-picture" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <label for="profilePicture">
+                        <div class="profile-pic" style="background-image: url('{{ asset('/storage/'. $user->picture) }}')">
+                            <span style="font-size: 12px">Change Image</span>
+                        </div>
+                    </label>
+                    <input type="File" name="profilePicture" id="profilePicture" onchange="profilePictureJs()" >
+                    <input type="hidden" name="oldImage" value="{{ $user->picture }}">
+                    <button id="submitPoto" type="submit" style="display: none;"></button>
+                  </form>
+
+              <form action="/update/password" method="POST">
+                    @csrf
                   <div class="col">
                     <div class="form-group">
                       <label class="form-label">{{ strtoupper($user->name) }}</label>
@@ -112,6 +124,12 @@
   </div>
 
   <script>
+
+    function profilePictureJs(){
+      var requestForm = document.getElementById('submitPoto');
+      requestForm.click();;
+    }
+
     var check = function() {
       if (document.getElementById('password').value ==
         document.getElementById('new_password').value) {

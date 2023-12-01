@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateProfile {
 
@@ -20,6 +21,26 @@ class UpdateProfile {
         $user->save();
 
         return back()->with('success_profile', 'Data profile telah di ubah!');
+    }
+
+    public function updatePicture($request){
+        $validatedData = $request->validate([
+            'image' => 'image|file|max:512',
+        ]);
+
+        if ($request->file('profilePicture')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('profilePicture')->store('picture-profile');
+        }
+
+        $user = User::find(auth()->user()->id);
+        $user->picture = $validatedData['image'];
+        $user->save();
+
+        return back()->with('success_password', 'Foto profile telah di ubah!');
+
     }
 
 }
