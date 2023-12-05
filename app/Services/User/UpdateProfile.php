@@ -25,7 +25,7 @@ class UpdateProfile {
 
     public function updatePicture($request){
         $validatedData = $request->validate([
-            'image' => 'image|file|max:512',
+            'profilePicture' => 'image|file|max:512|mimes:jpg,jpeg,png'
         ]);
 
         if ($request->file('profilePicture')) {

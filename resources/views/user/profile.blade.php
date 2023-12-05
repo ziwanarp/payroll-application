@@ -22,7 +22,7 @@
                             <span style="font-size: 12px">Change Image</span>
                         </div>
                     </label>
-                    <input type="File" name="profilePicture" id="profilePicture" onchange="profilePictureJs()" >
+                    <input type="File" name="profilePicture" class="@error('profilePicture') is-invalid @enderror" id="profilePicture" onchange="profilePictureJs()" >
                     <input type="hidden" name="oldImage" value="{{ $user->picture }}">
                     <button id="submitPoto" type="submit" style="display: none;"></button>
                   </form>
@@ -45,6 +45,12 @@
                   <input type="password" class="form-control" id="new_password" name="new_password" placeholder="Masukan konfirmasi password" onkeyup='check()'/>
                   <span class="mx-0 mt-2" id='message'></span>
                 </div>
+                @error('profilePicture')
+                    <div class="alert alert-danger alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert"></button>
+                      {{ $message }}
+                    </div>
+                @enderror
                 @if (session()->has('success_password'))
                   <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert"></button>
