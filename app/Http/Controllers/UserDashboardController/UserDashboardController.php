@@ -67,10 +67,6 @@ class UserDashboardController extends Controller
         return $updateProfile->updateProfile($request);
     }
 
-    public function statistic(){
-        
-    }
-
     public function updateProfilePicture(Request $request){
         $upateProfilePicture = new UpdateProfile;
         return $upateProfilePicture->updatePicture($request);
