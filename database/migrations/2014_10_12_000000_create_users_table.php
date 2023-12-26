@@ -26,6 +26,7 @@ return new class extends Migration
             $table->boolean('user_active');
             $table->boolean('account_active');
             $table->string('picture')->nullable();
+            $table->string('ip_login');
             $table->rememberToken();
             $table->timestamps();
         });
