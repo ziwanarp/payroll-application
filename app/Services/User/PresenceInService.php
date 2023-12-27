@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\Presence;
+use App\Models\Pay;
 
 class PresenceInService {
 
@@ -19,6 +20,14 @@ class PresenceInService {
             'date' => today(),
         ]);
         $presenceIn->save();
+
+        $pay = new Pay([
+            'user_id' => auth()->user()->id,
+            'allowance' => 30000,
+            'deduction' => 0,
+            'date' => today(),
+        ]);
+        $pay->save();
 
         return back()->with('success','Absen masuk berhasil !');
 
