@@ -21,9 +21,9 @@ class LoginService {
             }
         }
 
-        if($user->user_active == 1){
-            return back()->with('error', 'Akun anda sedang login di device lain (IP:'.$user->ip_login.') !');
-        }
+        // if($user->user_active == 1){
+        //     return back()->with('error', 'Akun anda sedang login di device lain (IP:'.$user->ip_login.') !');
+        // }
 
         if (Auth::attempt($credentials)) {
 
