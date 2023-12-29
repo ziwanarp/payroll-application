@@ -2,6 +2,8 @@
 
 @section('body')
 
+<div id="id_user" data-id-user="{{ auth()->user()->id }}"></div>
+
 <div class="d-inline">
   <h4 class="my-5 text-center">Absensi {{ \Carbon\Carbon::createFromFormat('Y-m', $month)->format('F Y') }}</h4>
   
@@ -100,3 +102,16 @@
   </div>
 
 @endsection
+
+<script>
+navigator.geolocation.getCurrentPosition(
+    function (position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        console.log(latitude+','+longitude);
+    },
+    function (error) {
+        console.error("Error getting location:", error.message);
+    }
+);
+</script>
