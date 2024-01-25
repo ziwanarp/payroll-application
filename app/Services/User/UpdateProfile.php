@@ -5,25 +5,29 @@ namespace App\Services\User;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
-class UpdateProfile {
+class UpdateProfile extends User {
 
-    public function updateProfile($request){
-        $user = User::find(auth()->user()->id);
+    private $user;
 
-        if($user->name == $request->name && $user->username == $request->username && $user->email == $request->email){
+    public function __construct()
+    {
+        $this->user = new User();
+    }
+
+    public function updateProfile($request)
+    {
+        if($this->user->getName() == $request->name && $this->user->getUsername() == $request->username && $this->user->getEmail() == $request->email){
             return back()->with('error_profile','Data profile tidak ada perubahan!');
         }
-
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->email = $request->email;
-
-        $user->save();
+        $this->user->setName($request->name);
+        $this->user->setUsername($request->username);
+        $this->user->setEmail($request->email);
 
         return back()->with('success_profile', 'Data profile telah di ubah!');
     }
 
-    public function updatePicture($request){
+    public function updatePicture($request)
+    {
         $validatedData = $request->validate([
             'profilePicture' => 'image|file|max:512|mimes:jpg,jpeg,png'
         ]);
@@ -34,10 +38,7 @@ class UpdateProfile {
             }
             $validatedData['image'] = $request->file('profilePicture')->store('picture-profile');
         }
-
-        $user = User::find(auth()->user()->id);
-        $user->picture = $validatedData['image'];
-        $user->save();
+        $this->user->setPicture($validatedData['image']);
 
         return back()->with('success_password', 'Foto profile telah di ubah!');
 

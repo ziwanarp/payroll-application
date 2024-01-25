@@ -60,4 +60,43 @@ class User extends Authenticatable
     public function role() {
         return $this->belongsTo(Role::class);
     }
+
+    protected function setName($name){
+        $data = User::find(auth()->user()->id);
+        $data->name = $name;
+        $data->save();
+    }
+
+    protected function setUsername($username){
+        $data = User::find(auth()->user()->id);
+        $data->username = $username;
+        $data->save();
+    }
+
+    protected function setEmail($email){
+        $data = User::find(auth()->user()->id);
+        $data->email = $email;
+        $data->save();
+    }
+
+    protected function setPicture($picture){
+        $data = User::find(auth()->user()->id);
+        $data->picture = $picture;
+        $data->save();
+    }
+
+    protected function getName(){
+        $data = User::find(auth()->user()->id);
+        return $data->name;
+    }
+
+    protected function getUsername(){
+        $data = User::find(auth()->user()->id);
+        return $data->username;
+    }
+
+    protected function getEmail(){
+        $data = User::find(auth()->user()->id);
+        return $data->email;
+    }
 }
