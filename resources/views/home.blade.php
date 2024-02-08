@@ -103,7 +103,7 @@
 
 @endsection
 
-<script>
+{{-- <script>
 navigator.geolocation.getCurrentPosition(
     function (position) {
         var latitude = position.coords.latitude;
@@ -111,7 +111,8 @@ navigator.geolocation.getCurrentPosition(
         console.log(latitude+','+longitude);
     },
     function (error) {
+        alert("Jika Lokasi Tidak aktif maka tidak bisa absen !");
         console.error("Error getting location:", error.message);
     }
 );
-</script>
+</script> --}}

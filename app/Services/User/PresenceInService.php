@@ -7,10 +7,19 @@ use App\Models\Pay;
 
 class PresenceInService {
 
-    public function presenceInService(){
+    public function presenceInService($request){
+        if($request->image == null || $request->image == ""){
+            return json_encode(["success" => false,"message" => "Image Null !"]);
+        }
+
+        if($request->location == null || $request->location == ""){
+            return json_encode(["success" => false,"message" => "Location Null !"]);
+        }
+        
         $presence = Presence::where('user_id',auth()->user()->id)->Where('date', today())->whereNotNull('in')->get();
         if(count($presence) != 0){
-            return back()->with('error','Anda sudah melakukan absen masuk hari ini !');
+            // return back()->with('error','Anda sudah melakukan absen masuk hari ini !');
+            return json_encode(["success" => false,"message" => "Anda sudah melakukan absen masuk hari ini !"]);
         }
 
         $presenceIn = new Presence([
@@ -29,7 +38,8 @@ class PresenceInService {
         ]);
         $pay->save();
 
-        return back()->with('success','Absen masuk berhasil !');
+        return json_encode(["success" => true,"message" => "Anda sudah melakukan absen masuk hari ini !"]);
+        // return back()->with('success','Absen masuk berhasil !');
 
     }
 

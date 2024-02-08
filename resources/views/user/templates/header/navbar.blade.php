@@ -21,10 +21,10 @@
             <button data-toggle="tooltip" title="{{ $data->tooltip }}" class="btn btn-sm btn-{{ $data->color }}" disabled>Current Time: <div id="clock"></div></button>
           </div>
           <div class="nav-item d-none d-md-flex">
-            <form action="{{ $data->link.$data->value }}" method="POST">
-              @csrf
-              <button type="submit" data-toggle="tooltip" title="{{ $data->tooltip }}" class="btn btn-outline-{{ $data->color }}" {{ $data->buttonStatus }} >{{ $data->message }}</a>
-            </form>
+            {{-- <form action="{{ $data->link.$data->value }}" method="POST"> --}}
+              {{-- @csrf --}}
+              <button type="button" data-target=".bd-example-modal-lg" data-toggle="modal" onclick="openCam()" title="{{ $data->tooltip }}" class="btn btn-outline-{{ $data->color }}" {{ $data->buttonStatus }} >{{ $data->message }}</button>
+            {{-- </form> --}}
           </div>
           <div class="dropdown d-none d-md-flex">
             <a class="nav-link icon" data-toggle="dropdown">
@@ -120,6 +120,42 @@
               <a href="/profile" class="nav-link {{ ($active === "profile") ? 'active' :'' }}"><i class="fe fe-home"></i> Profile</a>
             </li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" id="stopCapture" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        
+        {{-- video preview --}}
+        <div class="modal-body">
+          <div class="d-flex justify-content-center">
+            <video id="webcam" width="320" height="240" autoplay></video>
+          </div>
+
+          {{-- button capture --}}
+          <div class="mt-2 d-flex justify-content-center">
+            <button id="capture" class="btn btn-success ml-2">Capture</button>
+          </div>
+
+          {{-- image preview --}}
+          <div class="d-flex justify-content-center mt-2">
+            <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+            <img id="capturedImage" style="display: none;">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="$('#stopCapture').click()" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

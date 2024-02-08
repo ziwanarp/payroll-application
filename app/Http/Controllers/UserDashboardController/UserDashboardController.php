@@ -39,9 +39,9 @@ class UserDashboardController extends Controller
         return view('home', compact('data','home','in','out', 'active', 'title', 'month'));
     }
 
-    public function presenceIn(){
+    private function presenceIn($request){
        $PresenceInService = new PresenceInService;
-       return $PresenceInService->presenceInService();
+       return $PresenceInService->presenceInService($request);
     }
 
     public function presenceOut(){
@@ -70,5 +70,9 @@ class UserDashboardController extends Controller
     public function updateProfilePicture(Request $request){
         $upateProfilePicture = new UpdateProfile;
         return $upateProfilePicture->updatePicture($request);
+    }
+
+    public function capture(Request $request){
+        return $this->presenceIn($request);
     }
 }
