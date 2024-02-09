@@ -91,47 +91,35 @@
             var location = null;
             // var captureButton = document.getElementById('capture');
 
+            // get location
+            navigator.geolocation.getCurrentPosition(
+                  function (position) {
+                     location = position.coords.latitude+','+position.coords.longitude;
+                  },
+                  function (error) {
+                      location = null;
+                  }
+              );
+
             $("#stopCapture").on("click", function(){
               if (videoStream) {
                   var tracks = videoStream.getTracks();
                   tracks.forEach(function(track) {
-                    console.log("close capture");
                       track.stop();
                   });
                 }
             });
         
+            console.log(location+"atas capture");
             $("#capture").on("click", function(){
-              // get location
-              navigator.geolocation.getCurrentPosition(
-                  function (position) {
-                      var latitude = position.coords.latitude;
-                      var longitude = position.coords.longitude;
-                      console.log(latitude+','+longitude);
-                     location = latitude+";"+longitude;
-
-                      // console.log(location);
-                  },
-                  function (error) {
-                      alert("Jika Lokasi Tidak aktif maka tidak bisa absen !");
-                      console.error("Error getting location:", error.message);
-                      location = null;
-                  }
-              );
-
-              console.log(location);
-
+              
                 // Draw the current frame of the video on the canvas
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                console.log('captured button');
-                console.log(canvas);
-                    
                 // Convert canvas data to base64 image data
                 var imageData = canvas.toDataURL('image/png');
-                console.log(imageData);
         
-                    // Display the captured image
+                // Display the captured image
                 capturedImage.src = imageData;
                 capturedImage.style.display = 'block';
         
@@ -143,13 +131,15 @@
                             image: imageData,
                             location: location },
                     success: function(response) {
-                        var res = JSON.parse(response)
-                        console.log(res.success);
-                        alert(res.message);
+                        var res = JSON.parse(response);
+
+                        if(res.success == true){
+                          window.location.href = '/capture/success';
+                        }
+
                     },
                     error: function(error) {
-                        console.log(error);
-                        // alert('Error capturing image!');
+                        window.location.href = '/capture/failed';
                     }
                   });
             });

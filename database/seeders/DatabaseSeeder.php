@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
             'last_login' => now(),
             'user_active' => true,
             'account_active' => true,
+            'ip_login' => '127.0.0.1'
         ]);
     }
 }

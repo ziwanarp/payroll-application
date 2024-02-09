@@ -26,8 +26,8 @@ class UserDashboardController extends Controller
         $this->configuration = new Configuration;
     }
 
-    public function index(Request $request){
-        $homeData = $this->homeService->HomeService($request);
+    public function index(){
+        $homeData = $this->homeService->HomeService(request());
         $home = $homeData['presence'];
         $month = $homeData['month'];
 
@@ -74,5 +74,13 @@ class UserDashboardController extends Controller
 
     public function capture(Request $request){
         return $this->presenceIn($request);
+    }
+
+    public function captureSuccess(){
+        return redirect('/')->with('success','Absen masuk berhasil !');
+    }
+
+    public function captureFailed(){
+
     }
 }

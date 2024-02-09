@@ -58,6 +58,13 @@
                                 <span data-toggle="tooltip" title="Absen Tepat Waktu" class="badge badge-success">{{ $item->in }}</span>
                             @endif
                         </strong>
+                        <strong>
+                            @if ($item->image_in != null || $item->image_in != "" )
+                              <button onclick="buttonPreview('{{ $item->image_in }}','{{ $item->latitude }}','{{ $item->longitude }}');" type="button" data-toggle="tooltip" title="Lihat foto absen in !" class="badge badge-primary border-0">Prev Image</button>
+                            @else
+                              
+                            @endif
+                        </strong>
                       </div>
                     </div>
                   </td>
@@ -101,18 +108,44 @@
     </div>
   </div>
 
+  <div class="modal fade" id="previewImg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Preview Absensi IN</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           
+          </button>
+        </div>
+        
+          {{-- poto preview --}}
+      <div class="modal-body">
+        <div class="d-flex justify-content-center mt-2">
+            <canvas id="previewImg" width="320" height="240" style="display: none;"></canvas>
+            <div id="imageContainer"></div>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+          <div id="location"></div>
+        </div>
+      </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 @endsection
 
-{{-- <script>
-navigator.geolocation.getCurrentPosition(
-    function (position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        console.log(latitude+','+longitude);
-    },
-    function (error) {
-        alert("Jika Lokasi Tidak aktif maka tidak bisa absen !");
-        console.error("Error getting location:", error.message);
+<script>
+    function buttonPreview(image, lat, lon){
+      var url = '{{ asset('/storage/') }}'+'/'+image;
+      var locate = lat+', '+lon;
+  
+        $('#previewImg').modal('show');
+        $('#imageContainer').html('<img src="'+url+'" alt="Image">');
+        $('#location').html('<strong>Location: '+locate+' </strong>');
     }
-);
-</script> --}}
+</script>
