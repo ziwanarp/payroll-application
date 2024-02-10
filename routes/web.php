@@ -33,8 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/update/profile', [UserDashboardController::class, 'updateProfile']);
     Route::post('/update/profile-picture', [UserDashboardController::class, 'updateProfilePicture']);
 
-    Route::get('/statistic', [UserDashboardController::class, 'statistic']);
-
+    Route::post('/capture', [UserDashboardController::class, 'capture']);
+    
+    Route::get('/capture/success', [UserDashboardController::class, 'captureSuccess']);
+    Route::get('/capture/failed', [UserDashboardController::class, 'captureFailed']);
 
 });
 

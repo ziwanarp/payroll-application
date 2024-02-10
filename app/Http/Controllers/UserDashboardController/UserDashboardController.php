@@ -26,8 +26,8 @@ class UserDashboardController extends Controller
         $this->configuration = new Configuration;
     }
 
-    public function index(Request $request){
-        $homeData = $this->homeService->HomeService($request);
+    public function index(){
+        $homeData = $this->homeService->HomeService(request());
         $home = $homeData['presence'];
         $month = $homeData['month'];
 
@@ -39,14 +39,14 @@ class UserDashboardController extends Controller
         return view('home', compact('data','home','in','out', 'active', 'title', 'month'));
     }
 
-    public function presenceIn(){
+    private function presenceIn($request){
        $PresenceInService = new PresenceInService;
-       return $PresenceInService->presenceInService();
+       return $PresenceInService->presenceInService($request);
     }
 
-    public function presenceOut(){
+    public function presenceOut($request){
         $PresenceOutService = new PresenceOutService;
-        return $PresenceOutService->presenceOutService();
+        return $PresenceOutService->presenceOutService($request);
     }
 
     public function profile(){
@@ -67,12 +67,24 @@ class UserDashboardController extends Controller
         return $updateProfile->updateProfile($request);
     }
 
-    public function statistic(){
-        
-    }
-
     public function updateProfilePicture(Request $request){
         $upateProfilePicture = new UpdateProfile;
         return $upateProfilePicture->updatePicture($request);
+    }
+
+    public function capture(Request $request){
+        if($request->status == 'in'){
+            return $this->presenceIn($request);
+        } else {
+            return $this->presenceOut($request);
+        }
+    }
+
+    public function captureSuccess(){
+        return redirect('/')->with('success','Absen masuk berhasil !');
+    }
+
+    public function captureFailed(){
+
     }
 }

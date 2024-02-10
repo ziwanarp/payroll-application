@@ -21,10 +21,15 @@ class LoginService {
             }
         }
 
+        // if($user->user_active == 1){
+        //     return back()->with('error', 'Akun anda sedang login di device lain (IP:'.$user->ip_login.') !');
+        // }
+
         if (Auth::attempt($credentials)) {
 
             $user->last_login = now();
             $user->user_active = 1;
+            $user->ip_login = $request->ip();
             $user->save();
 
             return redirect()->intended('/');

@@ -2,6 +2,8 @@
 
 @section('body')
 
+<div id="id_user" data-id-user="{{ auth()->user()->id }}"></div>
+
 <div class="d-inline">
   <h4 class="my-5 text-center">Absensi {{ \Carbon\Carbon::createFromFormat('Y-m', $month)->format('F Y') }}</h4>
   
@@ -56,6 +58,13 @@
                                 <span data-toggle="tooltip" title="Absen Tepat Waktu" class="badge badge-success">{{ $item->in }}</span>
                             @endif
                         </strong>
+                        <strong>
+                            @if ($item->image_in != null )
+                              <button onclick="buttonPreview('{{ $item->image_in }}','{{ $item->location_in }}');" type="button" data-toggle="tooltip" title="Lihat foto absen in !" class="badge badge-primary border-0">Prev Image</button>
+                            @else
+                              
+                            @endif
+                        </strong>
                       </div>
                     </div>
                   </td>
@@ -66,15 +75,22 @@
                       @else
                           <span data-toggle="tooltip" title="Absen Pulang tepat waktu !" class="badge badge-success">{{ $item->out }}</span>
                       @endif
+                      <strong>
+                        @if ($item->image_in != null )
+                          <button onclick="buttonPreview('{{ $item->image_out }}','{{ $item->location_out }}');" type="button" data-toggle="tooltip" title="Lihat foto absen in !" class="badge badge-primary border-0">Prev Image</button>
+                        @else
+                          
+                        @endif
+                    </strong>
                     @else
                       <span class="badge badge-secondary">Belum absen</span>
                     @endif
                   </td>
                   
                   <td class="text-center">
-                    <div class="mx-auto chart-circle chart-circle-xs" data-value="0.42" data-thickness="3" data-color="blue">
-                      <div class="chart-circle-value">{{ \Carbon\Carbon::parse($item->date)->format('l').', '.$item->date }}</div>
-                    </div>
+                    {{-- <div class="mx-auto chart-circle chart-circle-xs" data-value="0.42" data-thickness="3" data-color="blue"> --}}
+                      <small>{{ \Carbon\Carbon::parse($item->date)->format('l').', '.$item->date }}</small>
+                    {{-- </div> --}}
                   </td>
                   <td class="text-center">
                     <div class="item-action dropdown">
@@ -99,4 +115,42 @@
     </div>
   </div>
 
+  <div class="modal fade" id="previewImg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Preview Foto Absensi</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           
+          </button>
+        </div>
+        
+          {{-- poto preview --}}
+      <div class="modal-body">
+        <div class="d-flex justify-content-center mt-2">
+            <canvas id="previewImg" width="320" height="240" style="display: none;"></canvas>
+            <div id="imageContainer"></div>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+          <div id="location"></div>
+        </div>
+      </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 @endsection
+
+<script>
+    function buttonPreview(image, location){
+      var url = '{{ asset('/storage/') }}'+'/'+image;
+  
+        $('#previewImg').modal('show');
+        $('#imageContainer').html('<img src="'+url+'" alt="Image">');
+        $('#location').html('<strong>Location: '+location+' </strong>');
+    }
+</script>
