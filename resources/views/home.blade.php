@@ -59,8 +59,8 @@
                             @endif
                         </strong>
                         <strong>
-                            @if ($item->image_in != null || $item->image_in != "" )
-                              <button onclick="buttonPreview('{{ $item->image_in }}','{{ $item->latitude }}','{{ $item->longitude }}');" type="button" data-toggle="tooltip" title="Lihat foto absen in !" class="badge badge-primary border-0">Prev Image</button>
+                            @if ($item->image_in != null )
+                              <button onclick="buttonPreview('{{ $item->image_in }}','{{ $item->location_in }}');" type="button" data-toggle="tooltip" title="Lihat foto absen in !" class="badge badge-primary border-0">Prev Image</button>
                             @else
                               
                             @endif
@@ -75,15 +75,22 @@
                       @else
                           <span data-toggle="tooltip" title="Absen Pulang tepat waktu !" class="badge badge-success">{{ $item->out }}</span>
                       @endif
+                      <strong>
+                        @if ($item->image_in != null )
+                          <button onclick="buttonPreview('{{ $item->image_out }}','{{ $item->location_out }}');" type="button" data-toggle="tooltip" title="Lihat foto absen in !" class="badge badge-primary border-0">Prev Image</button>
+                        @else
+                          
+                        @endif
+                    </strong>
                     @else
                       <span class="badge badge-secondary">Belum absen</span>
                     @endif
                   </td>
                   
                   <td class="text-center">
-                    <div class="mx-auto chart-circle chart-circle-xs" data-value="0.42" data-thickness="3" data-color="blue">
-                      <div class="chart-circle-value">{{ \Carbon\Carbon::parse($item->date)->format('l').', '.$item->date }}</div>
-                    </div>
+                    {{-- <div class="mx-auto chart-circle chart-circle-xs" data-value="0.42" data-thickness="3" data-color="blue"> --}}
+                      <small>{{ \Carbon\Carbon::parse($item->date)->format('l').', '.$item->date }}</small>
+                    {{-- </div> --}}
                   </td>
                   <td class="text-center">
                     <div class="item-action dropdown">
@@ -112,7 +119,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Preview Absensi IN</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Preview Foto Absensi</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            
           </button>
@@ -130,8 +137,7 @@
       </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -140,12 +146,11 @@
 @endsection
 
 <script>
-    function buttonPreview(image, lat, lon){
+    function buttonPreview(image, location){
       var url = '{{ asset('/storage/') }}'+'/'+image;
-      var locate = lat+', '+lon;
   
         $('#previewImg').modal('show');
         $('#imageContainer').html('<img src="'+url+'" alt="Image">');
-        $('#location').html('<strong>Location: '+locate+' </strong>');
+        $('#location').html('<strong>Location: '+location+' </strong>');
     }
 </script>

@@ -44,9 +44,9 @@ class UserDashboardController extends Controller
        return $PresenceInService->presenceInService($request);
     }
 
-    public function presenceOut(){
+    public function presenceOut($request){
         $PresenceOutService = new PresenceOutService;
-        return $PresenceOutService->presenceOutService();
+        return $PresenceOutService->presenceOutService($request);
     }
 
     public function profile(){
@@ -73,7 +73,11 @@ class UserDashboardController extends Controller
     }
 
     public function capture(Request $request){
-        return $this->presenceIn($request);
+        if($request->status == 'in'){
+            return $this->presenceIn($request);
+        } else {
+            return $this->presenceOut($request);
+        }
     }
 
     public function captureSuccess(){

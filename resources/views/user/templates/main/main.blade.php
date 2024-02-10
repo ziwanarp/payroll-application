@@ -77,11 +77,13 @@
                   video.srcObject = stream;
               })
               .catch(function(err) {
-                alert('Jika kamera tidak diizinkan maka tidak bisa absen !')
-                  console.log("An error occurred: " + err);
+                var captureButton = document.getElementById('capture');
+                captureButton.classList.remove('btn-success');
+                captureButton.classList.add('btn-secondary');
+                captureButton.disabled = true;
               });
         }
- 
+
         // Capture image from webcam
         $(document).ready(function() {
             var video = document.getElementById('webcam');
@@ -110,9 +112,9 @@
                 }
             });
         
-            console.log(location+"atas capture");
             $("#capture").on("click", function(){
-              
+              var status = $(this).attr('value');
+
                 // Draw the current frame of the video on the canvas
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
@@ -129,17 +131,25 @@
                     url: '/capture',
                     data: { _token: $('meta[name="csrf-token"]').attr('content'),
                             image: imageData,
-                            location: location },
+                            location: location,
+                            status: status },
                     success: function(response) {
                         var res = JSON.parse(response);
 
+                        console.log(res);
+
                         if(res.success == true){
                           window.location.href = '/capture/success';
+                        } else {
+                          alert(res.message);
+                          $('#stopCapture').click()
+                          $('#capturedImage').remove();
+
                         }
 
                     },
                     error: function(error) {
-                        window.location.href = '/capture/failed';
+                        // window.location.href = '/capture/failed';
                     }
                   });
             });

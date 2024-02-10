@@ -129,7 +129,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Absensi Webcam</h5>
           <button type="button" class="close" id="stopCapture" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"></span>
           </button>
@@ -143,7 +143,7 @@
 
           {{-- button capture --}}
           <div class="mt-2 d-flex justify-content-center">
-            <button id="capture" class="btn btn-success ml-2">Capture</button>
+            <button id="capture" value="{{ $data->value }}" class="btn btn-success ml-2">Absen</button>
           </div>
 
           {{-- image preview --}}
@@ -154,8 +154,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" onclick="$('#stopCapture').click()" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-danger" onclick="$('#stopCapture').click()" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

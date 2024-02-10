@@ -28,21 +28,31 @@ class NavbarService
 
         $presence = Presence::where('user_id', auth()->user()->id)->where('date',today())->get();
 
-        if (Carbon::now()->dayOfWeek == Carbon::SATURDAY || Carbon::now()->dayOfWeek == Carbon::SUNDAY) {
-            $data->value = 'false';
-            $data->color = 'secondary';
-            $data->message = 'Hari Libur';
-            $data->tooltip = 'Tidak bisa absen, ini hari libur!';
-            $data->link = $this->link;
-            $data->buttonStatus = 'disabled';
-        } else {
+        // if (Carbon::now()->dayOfWeek == Carbon::SATURDAY || Carbon::now()->dayOfWeek == Carbon::SUNDAY) {
+        //     $data->value = 'false';
+        //     $data->color = 'secondary';
+        //     $data->message = 'Hari Libur';
+        //     $data->tooltip = 'Tidak bisa absen, ini hari libur!';
+        //     $data->link = $this->link;
+        //     $data->buttonStatus = 'disabled';
+        // } else {
             if(count($presence) != 0){
-                $data->value = 'out';
-                $data->color = 'success';
-                $data->message = 'Go Home!';
-                $data->tooltip = 'Saatnya pulang, silahkan absen !';
-                $data->link = $this->link;
-                $data->buttonStatus = '';
+                
+                if($presence[0]->out == null){
+                    $data->value = 'out';
+                    $data->color = 'success';
+                    $data->message = 'Go Home!';
+                    $data->tooltip = 'Saatnya pulang, silahkan absen !';
+                    $data->link = $this->link;
+                    $data->buttonStatus = '';
+                } else {
+                    $data->value = 'false';
+                    $data->color = 'secondary';
+                    $data->message = 'Sudah Absen!';
+                    $data->tooltip = 'Anda sudah absen pulang hari ini!';
+                    $data->link = $this->link;
+                    $data->buttonStatus = 'disabled';
+                }
             } else {
                 if(time() < $timeIn){
                     $data->value = 'in';
@@ -59,12 +69,12 @@ class NavbarService
                     $data->link = $this->link;
                     $data->buttonStatus = '';
                 } else if (time() > $timeOut && time() < strtotime('23:59:59')){
-                    $data->value = 'out';
-                    $data->color = 'success';
-                    $data->message = 'Go Home!';
-                    $data->tooltip = 'Saatnya pulang, silahkan absen !';
+                    $data->value = 'false';
+                    $data->color = 'secondary';
+                    $data->message = 'Tidak Masuk!';
+                    $data->tooltip = 'Anda tidak masuk kerja hari ini!';
                     $data->link = $this->link;
-                    $data->buttonStatus = '';
+                    $data->buttonStatus = 'disabled';
                 } else {
                     $data->value = 'error';
                     $data->color = 'error';
@@ -74,7 +84,7 @@ class NavbarService
                     $data->buttonStatus = '';
                 }
             }
-        }
+        // }
         
         return $data;
     }
