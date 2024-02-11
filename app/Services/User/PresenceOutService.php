@@ -5,9 +5,10 @@ namespace App\Services\User;
 use App\Models\Pay;
 use App\Models\Presence;
 use App\Models\Configuration;
+use App\Services\HelperService;
 use Illuminate\Support\Facades\Storage;
 
-class PresenceOutService {
+class PresenceOutService extends HelperService {
 
     public function presenceOutService($request){
 
@@ -30,6 +31,11 @@ class PresenceOutService {
         if($presence[0]->out != null){
             // return back()->with('error','Anda sudah absen pulang hari ini !');
             return json_encode(["success" => false,"message" => "Anda sudah absen pulang hari ini !"]);
+        }
+
+        $distance = $this->jarakLokasi($request);
+        if($distance >= 500){
+            return json_encode(["success" => false,"message" => "Jarak anda > 500M dengan kantor !"]);
         }
 
         $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $request->image));

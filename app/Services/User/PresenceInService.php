@@ -4,9 +4,10 @@ namespace App\Services\User;
 
 use App\Models\Pay;
 use App\Models\Presence;
+use App\Services\HelperService;
 use Illuminate\Support\Facades\Storage;
 
-class PresenceInService {
+class PresenceInService extends HelperService {
 
     public function presenceInService($request){
         if($request->image == null || $request->image == ""){
@@ -22,8 +23,10 @@ class PresenceInService {
             return json_encode(["success" => false,"message" => "Anda sudah melakukan absen masuk hari ini !"]);
         }
 
-        //implementasi jarak antara device dan office
-        //===========================================
+        $distance = $this->jarakLokasi($request);
+        if($distance >= 500){
+            return json_encode(["success" => false,"message" => "Jarak anda > 500M dengan kantor !"]);
+        }
 
         $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $request->image));
         $imageName = 'presence-image/'.auth()->user()->username.'_'.uniqid() . '_in.png';
