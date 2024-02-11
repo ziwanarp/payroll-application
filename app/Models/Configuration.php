@@ -19,6 +19,10 @@ class Configuration extends Model
         return Configuration::select('value')->where('variable','time_out')->first();
     }
 
+    public function office_location(){
+        return Configuration::select('value')->where('variable','office_location')->first();
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

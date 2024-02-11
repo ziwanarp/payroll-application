@@ -77,7 +77,7 @@
                       @endif
                       <strong>
                         @if ($item->image_in != null )
-                          <button onclick="buttonPreview('{{ $item->image_out }}','{{ $item->location_out }}');" type="button" data-toggle="tooltip" title="Lihat foto absen in !" class="badge badge-primary border-0">Prev Image</button>
+                          <button onclick="buttonPreview('{{ $item->image_out }}','{{ $item->location_out }}');" type="button" data-toggle="tooltip" title="Lihat foto absen out !" class="badge badge-primary border-0">Prev Image</button>
                         @else
                           
                         @endif
