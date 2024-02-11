@@ -34,6 +34,11 @@ class DatabaseSeeder extends Seeder
             'value' => '17:00:00',
         ]);
 
+        \App\Models\Configuration::create([
+            'variable' => 'office_location',
+            'value' => '-6.214252843727726, 106.94931853768216',
+        ]);
+
         \App\Models\User::create([
             'name' => 'admin app',
             'username' => 'admin',
