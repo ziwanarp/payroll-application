@@ -28,14 +28,14 @@ class NavbarService
 
         $presence = Presence::where('user_id', auth()->user()->id)->where('date',today())->get();
 
-        // if (Carbon::now()->dayOfWeek == Carbon::SATURDAY || Carbon::now()->dayOfWeek == Carbon::SUNDAY) {
-        //     $data->value = 'false';
-        //     $data->color = 'secondary';
-        //     $data->message = 'Hari Libur';
-        //     $data->tooltip = 'Tidak bisa absen, ini hari libur!';
-        //     $data->link = $this->link;
-        //     $data->buttonStatus = 'disabled';
-        // } else {
+        if (Carbon::now()->dayOfWeek == Carbon::SATURDAY || Carbon::now()->dayOfWeek == Carbon::SUNDAY) {
+            $data->value = 'false';
+            $data->color = 'secondary';
+            $data->message = 'Hari Libur';
+            $data->tooltip = 'Tidak bisa absen, ini hari libur!';
+            $data->link = $this->link;
+            $data->buttonStatus = 'disabled';
+        } else {
             if(count($presence) != 0){
                 
                 if($presence[0]->out == null){
@@ -84,7 +84,7 @@ class NavbarService
                     $data->buttonStatus = '';
                 }
             }
-        // }
+        }
         
         return $data;
     }
