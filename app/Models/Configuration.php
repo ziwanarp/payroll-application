@@ -23,6 +23,14 @@ class Configuration extends Model
         return Configuration::select('value')->where('variable','office_location')->first();
     }
 
+    public function allowance(){
+        return Configuration::select('value')->where('variable','allowance')->first();
+    }
+
+    public function deduction(){
+        return Configuration::select('value')->where('variable','deduction')->first();
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

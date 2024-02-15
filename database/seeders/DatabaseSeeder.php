@@ -39,12 +39,22 @@ class DatabaseSeeder extends Seeder
             'value' => '-6.214252843727726, 106.94931853768216',
         ]);
 
+        \App\Models\Configuration::create([
+            'variable' => 'deduction',
+            'value' => '15000',
+        ]);
+
+        \App\Models\Configuration::create([
+            'variable' => 'allowance',
+            'value' => '30000',
+        ]);
+
         \App\Models\User::create([
             'name' => 'admin app',
             'username' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin'),
-            'salary' => 0,
+            'salary' => 4500000,
             'role_id' => 1,
             'last_login' => now(),
             'user_active' => true,
