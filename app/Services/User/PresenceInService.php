@@ -49,7 +49,7 @@ class PresenceInService extends HelperService {
 
         $pay = new Pay([
             'user_id' => auth()->user()->id,
-            'allowance' => $configuration->allowance(),
+            'allowance' =>floatval($configuration->allowance()->value) ,
             'deduction' => 0,
             'date' => today(),
         ]);

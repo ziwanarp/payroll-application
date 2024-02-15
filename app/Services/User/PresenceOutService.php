@@ -48,7 +48,7 @@ class PresenceOutService extends HelperService {
         $presence[0]->save();
 
         if(!strtotime($presence[0]->in) <= strtotime($configuration->in()) && strtotime($presence[0]->out) >= strtotime($configuration->out())){
-            $pay[0]->deduction = $configuration->deduction();
+            $pay[0]->deduction = $configuration->deduction()->value;
             $pay[0]->save();
         }
         // return back()->with('success','Absen pulang berhasil !');
