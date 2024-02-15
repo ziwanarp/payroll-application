@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Models\Configuration;
 use App\Models\Pay;
 use App\Models\Presence;
 use App\Services\HelperService;
@@ -32,6 +33,8 @@ class PresenceInService extends HelperService {
         $imageName = 'presence-image/'.auth()->user()->username.'_'.uniqid() . '_in.png';
         Storage::disk('public')->put($imageName, $imageData);
 
+        $configuration = new Configuration;
+
         $presenceIn = new Presence([
             'user_id' => auth()->user()->id,
             'in' => now(),
@@ -46,7 +49,7 @@ class PresenceInService extends HelperService {
 
         $pay = new Pay([
             'user_id' => auth()->user()->id,
-            'allowance' => 30000,
+            'allowance' => $configuration->allowance(),
             'deduction' => 0,
             'date' => today(),
         ]);
