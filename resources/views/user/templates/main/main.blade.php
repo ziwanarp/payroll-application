@@ -139,7 +139,7 @@
                         console.log(res);
 
                         if(res.success == true){
-                          window.location.href = '/capture/success';
+                          window.location.href = '/capture/success?status='+status;
                         } else {
                           alert(res.message);
                           $('#stopCapture').click()

@@ -52,7 +52,7 @@ class PresenceOutService extends HelperService {
             $pay[0]->save();
         }
         // return back()->with('success','Absen pulang berhasil !');
-        return json_encode(["success" => true,"message" => "Anda berhasil melakukan absen pulsng hari ini !"]);
+        return json_encode(["success" => true,"message" => "Anda berhasil melakukan absen pulang hari ini !"]);
     }
     
 }

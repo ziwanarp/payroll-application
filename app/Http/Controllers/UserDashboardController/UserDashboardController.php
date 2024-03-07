@@ -81,7 +81,11 @@ class UserDashboardController extends Controller
     }
 
     public function captureSuccess(){
-        return redirect('/')->with('success','Absen masuk berhasil !');
+        if(request()->status == "in"){
+            return redirect('/')->with('success','Absen masuk berhasil !');
+        } else {
+            return redirect('/')->with('success','Absen pulang berhasil !');
+        }
     }
 
     public function captureFailed(){
